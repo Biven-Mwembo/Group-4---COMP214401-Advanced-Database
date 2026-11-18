@@ -1,7 +1,7 @@
 -- ============================================================================
 -- COMP214 Online Bookstore - Private Synonyms for Team Members
 -- Owner of shared objects: jdanie48
--- Run as: EACH TEAM MEMBER'S OWN USER (e.g., jdanie48)
+-- Run as: EACH TEAM MEMBER'S OWN USER
 -- Do not run as ADMIN
 -- Oracle SQL Developer: use F5 (Run Script).
 --
@@ -30,8 +30,8 @@ DECLARE
             DBMS_OUTPUT.PUT_LINE('SKIP: ' || p_name || ' (another object already uses this name)');
         ELSE
             EXECUTE IMMEDIATE
-                'CREATE OR REPLACE SYNONYM ' || p_name || ' FOR JUNXD11.' || p_name;
-            DBMS_OUTPUT.PUT_LINE('OK: ' || p_name || ' -> JUNXD11.' || p_name);
+                'CREATE OR REPLACE SYNONYM ' || p_name || ' FOR JDANIE48.' || p_name;
+            DBMS_OUTPUT.PUT_LINE('OK: ' || p_name || ' -> JDANIE48.' || p_name);
         END IF;
     EXCEPTION
         WHEN OTHERS THEN
@@ -39,7 +39,7 @@ DECLARE
             RAISE;
     END;
 BEGIN
-    IF v_user IN ('ADMIN', 'JUNXD11') THEN
+    IF v_user IN ('ADMIN', 'JDANIE48') THEN
         RAISE_APPLICATION_ERROR(-20001,
             'Connect as your own TEAM MEMBER account, not ' || v_user || '.');
     END IF;
@@ -82,10 +82,10 @@ SELECT USER AS connected_user,
        SYS_CONTEXT('USERENV', 'CURRENT_SCHEMA') AS current_schema
 FROM dual;
 
-PROMPT === Synonyms in your own schema pointing to JUNXD11 ===
+PROMPT === Synonyms in your own schema pointing to JDANIE48 ===
 SELECT synonym_name, table_owner, table_name
 FROM user_synonyms
-WHERE table_owner = 'JUNXD11'
+WHERE table_owner = 'JDANIE48'
 ORDER BY synonym_name;
 
 PROMPT === Quick access test (works if SELECT was granted) ===
